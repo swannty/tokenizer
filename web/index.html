@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+	<title>=T0k3n!z3R=</title>
+	<meta charset="utf-8">
+
+	<style>
+		i { font-size: 0.8em; }
+		h1 { font-family: monospace; }
+	</style>
+
+	<!-- https://cryptojs.gitbook.io -->
+	<!-- https://github.com/brix/crypto-js -->
+	<!-- https://cdnjs.com/libraries/crypto-js -->
+	<!-- https://code.google.com/archive/p/crypto-js/downloads -->
+
+	<!--
+	<script src="./crypto-js/core.js" 		type="application/javascript"></script>
+	<script src="./crypto-js/x64-core.js" 	type="application/javascript"></script>
+	<script src="./crypto-js/enc-base64.js"	type="application/javascript"></script>
+
+	<script src="./crypto-js/hmac.js" 		type="application/javascript"></script>
+	<script src="./crypto-js/sha1.js"		type="application/javascript"></script>
+	<script src="./crypto-js/sha256.js"		type="application/javascript"></script>
+	<script src="./crypto-js/sha512.js"		type="application/javascript"></script>
+	<script src="./crypto-js/pbkdf2.js"		type="application/javascript"></script>
+	-->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.min.js" 		type="application/javascript" crossorigin="anonymous" integrity="sha512-t8vdA86yKUE154D1VlNn78JbDkjv3HxdK/0MJDMBUXUjshuzRgET0ERp/0MAgYS+8YD9YmFwnz6+FWLz1gRZaw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/x64-core.min.js" 	type="application/javascript" crossorigin="anonymous" integrity="sha512-tNYICRDqCrXYTs49IF9PkDrFhc928gh7V0mDsfEGMEjrxK2GbDlOag3oeYEB4RqsKolV2AyzKw6eMiconXqeiw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-IKpu1GFk/bQ+2fOc4sXuA6lm7Rct4P7611iDBxY9LReOZ2PpwoDWWqj6GSYejUce1FLxo/d4lxAnKqGWJuBw7g=="></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac.min.js" 	type="application/javascript" crossorigin="anonymous" integrity="sha512-tLNkZ/sTmmvq8RDIGCLU3ZzUYSixlGQxpL0X1LWFnTBdvw0SGurLkjAIh0CtG0oQ/1Yt6MaDiI8Gif05JZqEyQ=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha1.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-NHw1e1pc4RtmcynK88fHt8lpuetTUC0frnLBH6OrjmKGNnwY4nAnNBMjez4DRr9G1b+NtufOXLsF+apmkRCEIw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha256.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-fv28nWHTcWfoN3KBd2fs+YWsirQ+L0b/iIRS7HcNDPSAwxy6oSjRrYjQ+OtJoJz0wUKsVcPYgwcZzK04KfHD0A=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha512.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-iVz09aQOY2fbdnKQh7kJ0Q9h2ZVjMsql2IT6mI+qziZdJ7bT/guIovUCCE5bx1qzc4mnnUKyGkArkkGJ1zap0g=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/pbkdf2.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-E1FCVqEhkBCsxW0xRseAo/Mf/u+7cqKxQQ5R4RNHMHH3CxYpQmeSnXL9Tcf6amYSgy/dR3/utZt2TFY05OGabQ=="></script>
+
+	<script type="application/javascript">
+
+		"use strict";
+
+		function tokenizer(auth, host, key)
+		{
+			var pbkdf2 = CryptoJS.PBKDF2(auth, key, {hasher: CryptoJS.algo.SHA256, keySize: 512/32, iterations: 300000});
+
+			//--$ echo -n "auth" | nettle-pbkdf2 --iterations=300000 --length=64 "key"
+
+			var hmac512 = CryptoJS.HmacSHA512(host, pbkdf2.toString());
+
+			//--$ echo -n "host" | openssl dgst -sha512 -hmac "pbkdf2"
+
+			return CryptoJS.SHA1(hmac512).toString(CryptoJS.enc.Base64);
+
+			//--$ echo -n "hmac512" | xxd -r -p | sha1sum -b | cut -d ' ' -f 1 | xxd -r -p | base64 -w 0)
+		}
+
+		function getToken()
+		{
+			document.getElementById("token").textContent = '';
+
+			//--# get user inputs
+
+			var user = document.getElementById("user-name").value.trim();
+			var login = document.getElementById("user-login").value.trim();
+			var server = document.getElementById("host-server").value.trim();
+			var password = document.getElementById("master-key").value.trim();
+
+			//--# digest user data
+
+			var host = CryptoJS.SHA512(login + server).toString();
+			var auth = CryptoJS.SHA512(user + host).toString();
+			var key = CryptoJS.SHA512(password).toString();
+
+			//--# token result
+
+			document.getElementById("token").textContent = '!' + tokenizer(auth, host, key);
+		}
+
+	</script>
+
+</head>
+<body>
+<h1>=T0k3n!z3R=</h1>
+
+<span>A quick and dirty <b>password key derivation</b> tool powered by <a href="https://cryptojs.gitbook.io/docs/">Crypto-JS</a>.
+<br/>Only one good master password for an infinity of strong unique tokens.
+<br/>No subscription - no account - no storage - no leak - works offline (from terminal :)</span>
+
+<blockquote>
+<i>&laquo; One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them. &raquo;
+<br/><b>— J.R.R. Tolkien</b></i>
+</blockquote>
+
+<form>
+<hr/>
+	<table>	
+
+		<tr><td colspan="2"><h3>Private &amp; secret</h3></td></tr>
+
+		<tr>
+			<td>User: <i>(your name)</i></td>
+			<td><input title="Your name" type="text" id="user-name" size="30" placeholder="Jones Smith" /></td>
+		</tr>
+
+		<tr>
+			<td>Password: <i>(master seed or passphrase)</i></td>
+			<td><input title="Master password" type="password" id="master-key" size="30" placeholder="••••• ••••• •••••" /></td>
+		</tr>
+
+		<tr><td colspan="2"><h3>Public &amp; known</h3></td></tr>
+
+		<tr>
+			<td>Login: <i>(e-mail or alias or pseudonym)</i></td>
+			<td><input title="User login" type="text" id="user-login" size="30" placeholder="jsmith123 / jones.smith@email.com" /></td>
+		</tr>
+
+		<tr>
+			<td>Server: <i>(domain or hostname)</i></td>
+			<td><input title="Domain name" type="text" id="host-server" size="30" placeholder="website.com"/></td>
+		</tr>
+
+		<tr><td colspan="2">&nbsp;</td></tr>
+
+		<tr>
+			<td><input type="button" value="Get my token" onclick="getToken()" /> <i>(may take a while...)</i></td>
+			<td><b><span title="Your credential" id="token"></span></b><br/></td>
+		</tr>
+
+	</table>
+
+</form>
+<br/>
+<form>
+<hr/>
+<h3>Linux shell version $&gt;_</h3>
+
+<pre>
+#!/bin/bash
+
+set +o allexport
+
+#--[ User inputs ]------------------------------------------------------------------------------
+
+read -p "User: " USER
+read -s -p "Password: " PASS
+
+echo -e "\n"
+
+if ! [ -z "$1" ]; then LOGIN="$1"
+else read -p "Login: " LOGIN; fi
+
+if ! [ -z "$2" ]; then HOST="$2"
+else read -p "Server: " HOST; fi
+
+#--[ SHA512 digest inputs ]---------------------------------------------------------------------
+
+PASS=$(echo -n "$PASS" | sha512sum | cut -d ' ' -f 1)
+HOST=$(echo -n "$LOGIN$HOST" | sha512sum | cut -d ' ' -f 1)
+USER=$(echo -n "$USER$HOST" | sha512sum | cut -d ' ' -f 1)
+
+#--[ Tokenize with PBKDF2 / HMAC ]--------------------------------------------------------------
+
+PBKDF2=$(echo -n "$USER" | nettle-pbkdf2 --iterations=300000 --length=64 "$PASS" | sed 's/ //g')
+HMAC512=$(echo -n "$HOST" | openssl dgst -sha512 -hmac "$PBKDF2" | cut -d ' ' -f 2)
+
+#--[ SHA1 + BASE64 for convenient output ]------------------------------------------------------
+
+TOKEN=$(echo -n "$HMAC512" | xxd -r -p | sha1sum -b | cut -d ' ' -f 1 | xxd -r -p | base64 -w 0)
+
+#--[ User output ]------------------------------------------------------------------------------
+
+echo -e "\nToken: !$TOKEN"
+</pre>
+
+<br/><hr/>
+With <a href="https://www.lysator.liu.se/~nisse/nettle/">Nettle</a> (PBKDF2) and <a href="https://www.openssl.org/">OpenSSL</a> (HMAC) into the shell
+</form>
+<br/><br/>
+</body>
+</html>
