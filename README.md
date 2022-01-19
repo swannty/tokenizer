@@ -30,3 +30,6 @@ Shell version requires **Nettle** and **OpenSSL**.
 
 `# apt install nettle-bin openssl`
 
+Mirror: https://termbin.com/nunr
+
+Talk: https://crypto.stackexchange.com/questions/98173/diy-password-key-derivation-tool-using-pbkdf2-hmac
