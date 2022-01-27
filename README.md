@@ -33,3 +33,5 @@ Shell version requires **Nettle** and **OpenSSL**.
 Mirror: https://codeberg.org/swannty/tokenizer
 
 Talk: https://crypto.stackexchange.com/questions/98173/diy-password-key-derivation-tool-using-pbkdf2-hmac
+
+Live: https://jsfiddle.net/vm7ue0ns/2
