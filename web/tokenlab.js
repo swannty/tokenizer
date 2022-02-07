@@ -15,5 +15,5 @@ function token2pin(token)
 
     for (var i=0; i<hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
 
-    return token_b64.substring(token_b64.length - 4) + hexpin;
+    return token.substring(token.length - 4) + hexpin;
 }
