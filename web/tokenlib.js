@@ -1,4 +1,8 @@
 
+// var host = CryptoJS.SHA512(login + server).toString();
+// var auth = CryptoJS.SHA512(username + host).toString();
+// var key = CryptoJS.SHA512(password).toString();
+
 function tokenizer(auth, host, key)
 {
 	var pbkdf2 = CryptoJS.PBKDF2(auth, key, {hasher: CryptoJS.algo.SHA256, keySize: 512/32, iterations: 300000});
