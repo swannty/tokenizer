@@ -10,7 +10,7 @@
 		$pbkdf2 = hash_pbkdf2('sha256', $auth, $key, 300000, 128);
 		$hmac = hash_hmac('sha512', $host, $pbkdf2);
 
- 		return '!' . base64_encode(hash('sha1', hex2bin($hmac), true)); //-- token
+ 		return base64_encode(hash('sha1', hex2bin($hmac), true)); //-- token
 	}
 
 	function token2pin($token)
