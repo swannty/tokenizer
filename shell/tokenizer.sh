@@ -9,11 +9,8 @@ read -s -p "Password: " PASS
 
 echo -e "\n"
 
-if ! [ -z "$1" ]; then LOGIN="$1"
-else read -p "Login: " LOGIN; fi
-
-if ! [ -z "$2" ]; then HOST="$2"
-else read -p "Server: " HOST; fi
+read -p "Login: " LOGIN
+read -p "Server: " HOST
 
 #--[ SHA512 digest inputs ]---------------------------------------------------------------------
 
