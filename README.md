@@ -19,12 +19,17 @@ DIGEST = HMAC512( HOST_HASH, KEY )
 TOKEN = BASE64( SHA1(DIGEST) )
 ```
 
-Web version requires **Crypto-JS** library (or HTTPS secure context for **Web Crypto API/SubtleCrypto**).
+Web version requires **Crypto-JS** library.
 
 - https://cryptojs.gitbook.io
 - https://github.com/brix/crypto-js
 - https://cdnjs.com/libraries/crypto-js
 - https://code.google.com/archive/p/crypto-js/downloads
+
+HTTPS secure context can use **Web Crypto API / SubtleCrypto**.
+
+- https://developer.mozilla.org/en-US/docs/Web/API/Crypto
+- https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 
 Shell version requires **Nettle** and **OpenSSL**.
 
