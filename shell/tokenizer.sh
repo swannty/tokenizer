@@ -30,6 +30,14 @@ HMAC512=$(echo -n "$HOST" | openssl dgst -sha512 -hmac "$PBKDF2" | cut -d ' ' -f
 
 TOKEN=$(echo -n "$HMAC512" | xxd -r -p | sha1sum -b | cut -d ' ' -f 1 | xxd -r -p | base64 -w 0)
 
-#--[ Token output ]------------------------------------------------------------------------------
+#--[ Token output ]-----------------------------------------------------------------------------
 
 echo -e "\nToken: !$TOKEN"
+
+#--[ PIN alternative ]--------------------------------------------------------------------------
+
+HEXA=$(echo "$TOKEN" | base64 -d | xxd -p -u)
+HWORD=$(for ((i=0; i<=$(( ${#HEXA} / 6 )); i++)); do echo "$HEXA" | cut -c $(( i * 6 + 1 ))-$(( i * 6 + 6 )); done)
+XWORD=$(echo $HWORD | sed 's/ / ^ 0x/g')
+
+echo "PIN: ${TOKEN: -4}$(( 0x$XWORD ))"
