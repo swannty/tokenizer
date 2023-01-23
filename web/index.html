@@ -1,0 +1,484 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+	<title>=T0k3n!z3R=</title>
+	<meta charset="utf-8">
+
+	<link rel="icon" sizes="64x64" type="image/png" href="favicon.png">
+
+	<style>
+		i, code { font-size: 0.8em; }
+		h1 { font-family: monospace; }
+		pre { display: none; color: green; background-color: black; padding: 1em; }
+
+		.show { display: block !important; }
+		.hiden { color: #000; background-color: #000; }
+		.hiden:hover { color: #000; background-color: #fff; }
+	</style>
+
+	<!-- https://cryptojs.gitbook.io -->
+	<!-- https://github.com/brix/crypto-js -->
+	<!-- https://cdnjs.com/libraries/crypto-js -->
+	<!-- https://code.google.com/archive/p/crypto-js/downloads -->
+
+	<!--
+	<script src="./crypto-js/core.js" 		type="application/javascript"></script>
+	<script src="./crypto-js/x64-core.js" 	type="application/javascript"></script>
+	<script src="./crypto-js/enc-base64.js"	type="application/javascript"></script>
+
+	<script src="./crypto-js/hmac.js" 		type="application/javascript"></script>
+	<script src="./crypto-js/sha1.js"		type="application/javascript"></script>
+	<script src="./crypto-js/sha256.js"		type="application/javascript"></script>
+	<script src="./crypto-js/sha512.js"		type="application/javascript"></script>
+	<script src="./crypto-js/pbkdf2.js"		type="application/javascript"></script>
+	-->
+
+	<!--
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.min.js" 		type="application/javascript" crossorigin="anonymous" integrity="sha512-t8vdA86yKUE154D1VlNn78JbDkjv3HxdK/0MJDMBUXUjshuzRgET0ERp/0MAgYS+8YD9YmFwnz6+FWLz1gRZaw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/x64-core.min.js" 	type="application/javascript" crossorigin="anonymous" integrity="sha512-tNYICRDqCrXYTs49IF9PkDrFhc928gh7V0mDsfEGMEjrxK2GbDlOag3oeYEB4RqsKolV2AyzKw6eMiconXqeiw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-IKpu1GFk/bQ+2fOc4sXuA6lm7Rct4P7611iDBxY9LReOZ2PpwoDWWqj6GSYejUce1FLxo/d4lxAnKqGWJuBw7g=="></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac.min.js" 	type="application/javascript" crossorigin="anonymous" integrity="sha512-tLNkZ/sTmmvq8RDIGCLU3ZzUYSixlGQxpL0X1LWFnTBdvw0SGurLkjAIh0CtG0oQ/1Yt6MaDiI8Gif05JZqEyQ=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha1.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-NHw1e1pc4RtmcynK88fHt8lpuetTUC0frnLBH6OrjmKGNnwY4nAnNBMjez4DRr9G1b+NtufOXLsF+apmkRCEIw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha256.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-fv28nWHTcWfoN3KBd2fs+YWsirQ+L0b/iIRS7HcNDPSAwxy6oSjRrYjQ+OtJoJz0wUKsVcPYgwcZzK04KfHD0A=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha512.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-iVz09aQOY2fbdnKQh7kJ0Q9h2ZVjMsql2IT6mI+qziZdJ7bT/guIovUCCE5bx1qzc4mnnUKyGkArkkGJ1zap0g=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/pbkdf2.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-E1FCVqEhkBCsxW0xRseAo/Mf/u+7cqKxQQ5R4RNHMHH3CxYpQmeSnXL9Tcf6amYSgy/dR3/utZt2TFY05OGabQ=="></script>
+	-->
+
+	<script type="application/javascript">
+
+		"use strict";
+
+		//---------------------------------------------------------------------------------------------------------------
+
+		function buff2hex(buffer)
+		{
+			return [...new Uint8Array(buffer)].map(x => x.toString(16).padStart(2, '0')).join('');
+		}
+
+		function buff2pin(token_buffer)
+		{
+			var hex_data = buff2hex(token_buffer);
+			var hex_word = hex_data.match(/(.{1,6})/g);			
+			var hexpin = parseInt(hex_word.shift(), 16);
+
+			for (var i=0; i<hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
+			return hexpin;
+		}
+
+		//---------------------------------------------------------------------------------------------------------------
+
+		function tokenizer(auth, host, key)
+		{
+			const strenc = new TextEncoder('utf-8');
+
+			const pbkdf2_pref = {name: 'PBKDF2', hash: 'SHA-256', salt: strenc.encode(key), iterations: 300000};
+			const hmac_pref = {name: 'HMAC', hash: 'SHA-512'};
+
+			return new Promise(function(resolve)
+			{
+				crypto.subtle.importKey('raw', strenc.encode(auth), 'PBKDF2', false, ['deriveBits'])
+				.then(pbkdf2_key => crypto.subtle.deriveBits(pbkdf2_pref, pbkdf2_key, 64*8))
+				.then(pbkdf2_hash => crypto.subtle.importKey('raw', strenc.encode(buff2hex(pbkdf2_hash)), hmac_pref, false, ['sign']))
+				.then(hmac_key => crypto.subtle.sign('HMAC', hmac_key, strenc.encode(host)))
+				.then(hmac_hash => crypto.subtle.digest('SHA-1', hmac_hash))
+				.then(function(token_sha1)
+				{
+					var token = btoa(String.fromCharCode(...new Uint8Array(token_sha1)));
+					var pin = token.substring(token.length - 4) + buff2pin(token_sha1);
+
+					resolve({token: token, pin: pin});
+				});
+			})
+		}
+
+		async function digest(user, login, server, password)
+		{
+			const strenc = new TextEncoder('utf-8');
+
+			const key = await crypto.subtle.digest('SHA-512', strenc.encode(password));
+			const host = await crypto.subtle.digest('SHA-512', strenc.encode(login + server));
+			const auth = await crypto.subtle.digest('SHA-512', strenc.encode(user + buff2hex(host)));
+
+			return {auth: auth, host: host, key: key};
+		}
+
+		//---------------------------------------------------------------------------------------------------------------
+
+		function getToken()
+		{
+			document.getElementById("token").textContent = '';
+			document.getElementById("pin-token").textContent = '';
+
+			//--# get user inputs
+
+			var user = document.getElementById("user-name").value.trim();
+			var login = document.getElementById("user-login").value.trim();
+			var server = document.getElementById("host-server").value.trim();
+			var password = document.getElementById("master-key").value.trim();
+
+			//--# digest user data + token result
+
+			digest(user, login, server, password)
+			.then(hash => tokenizer(buff2hex(hash.auth), buff2hex(hash.host), buff2hex(hash.key)))
+			.then(function(results)
+			{
+				document.getElementById("token").textContent = '!' + results.token;			
+				document.getElementById("pin-token").textContent = results.pin;
+			});
+		}
+
+	</script>
+
+</head>
+<body>
+<h1>=T0k3n!z3R=</h1>
+<span>A quick and dirty <b>password key derivation</b> tool.
+<br/> 
+<br/>Only one good master password for an infinity of strong unique tokens.
+<br/>No subscription - no account - no storage - no leaks - works offline &amp; from terminal</span>
+<blockquote>
+<i>&laquo; One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them. &raquo;
+<br/><b>— J.R.R. Tolkien</b></i>
+</blockquote>
+<form>
+<hr/>
+	<table>	
+
+		<tr><td colspan="2"><h3>Private &amp; secret</h3></td></tr>
+
+		<tr>
+			<td>User: <i>(your name)</i></td>
+			<td><input title="Your name" type="text" id="user-name" size="30" placeholder="Jones Smith" spellcheck="false" /></td>
+		</tr>
+
+		<tr>
+			<td>Password: <i>(secret key or passphrase)</i></td>
+			<td><input title="Master password" type="password" id="master-key" size="30" placeholder="••••• ••••• •••••" spellcheck="false" /></td>
+		</tr>
+
+		<tr><td colspan="2"><h3>Public &amp; known</h3></td></tr>
+
+		<tr>
+			<td>Login: <i>(e-mail or alias or pseudonym)</i></td>
+			<td><input title="User login" type="text" id="user-login" size="30" placeholder="jsmith123 / jones.smith@email.com" spellcheck="false" /></td>
+		</tr>
+
+		<tr>
+			<td>Server: <i>(domain or hostname)</i></td>
+			<td><input title="Domain name" type="text" id="host-server" size="30" placeholder="website.com" spellcheck="false" /></td>
+		</tr>
+
+		<tr><td colspan="2">&nbsp;</td></tr>
+
+		<tr>
+			<td><input type="button" value="Get your token" onclick="getToken()" /> <i>(may take a while...)</i></td>
+			<td><b><span title="Your credential" id="token" class="hiden" onclick="navigator.clipboard.writeText(this.textContent)">&infin;</span></b><br/></td>
+		</tr>
+
+		<tr><td colspan="2">&nbsp;</td></tr>
+
+		<tr>
+			<td>Alternative PIN code:</td>
+			<td><b><span title="Your PIN code" id="pin-token" class="hiden" onclick="navigator.clipboard.writeText(this.textContent)">&infin;</span></b><br/></td>
+		</tr>
+	</table>
+</form>
+<br/>
+<div style="text-align: right;"><i>Powered by <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto">https://developer.mozilla.org/en-US/docs/Web/API/Crypto</a></i></div>
+<section>
+<hr/>
+<h3 onclick="this.nextElementSibling.classList.toggle('show')">Node.js &#9662;</h3>
+
+<pre class="node-js">
+#!/usr/bin/node
+
+"use strict";
+
+const util = require('util');
+const strenc = new util.TextEncoder('utf-8');
+const {subtle} = require('crypto').webcrypto;
+
+var readline = require('readline');
+var reader = readline.createInterface({input: process.stdin, output: process.stdout, terminal: true});
+var prompt = (query) => new Promise((resolve) => reader.question(query, resolve));
+
+(async () => {
+
+	const buff2hex = function(buffer) { return [...new Uint8Array(buffer)].map(x => x.toString(16).padStart(2, '0')).join(''); }
+
+	const buff2pin = function(token_buffer)
+	{
+		var hex_data = buff2hex(token_buffer);
+		var hex_word = hex_data.match(/(.{1,6})/g);			
+		var hexpin = parseInt(hex_word.shift(), 16);
+
+		for (var i=0; i < hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
+		return hexpin;
+	}
+
+	const tokenizer = function(auth, host, key)
+	{
+		const pbkdf2_pref = {name: 'PBKDF2', hash: 'SHA-256', salt: strenc.encode(key), iterations: 300000};
+		const hmac_pref = {name: 'HMAC', hash: 'SHA-512'};
+
+		return new Promise(function(resolve)
+		{
+			subtle.importKey('raw', strenc.encode(auth), 'PBKDF2', false, ['deriveBits'])
+			.then(pbkdf2_key => subtle.deriveBits(pbkdf2_pref, pbkdf2_key, 64*8))
+			.then(pbkdf2_hash => subtle.importKey('raw', strenc.encode(buff2hex(pbkdf2_hash)), hmac_pref, false, ['sign']))
+			.then(hmac_key => subtle.sign('HMAC', hmac_key, strenc.encode(host)))
+			.then(hmac_hash => subtle.digest('SHA-1', hmac_hash))
+			.then(function(token_sha1)
+			{
+				var token = btoa(String.fromCharCode(...new Uint8Array(token_sha1)));
+				var pin = token.substring(token.length - 4) + buff2pin(token_sha1);
+
+				resolve({token: token, pin: pin});
+			});
+		})
+	}
+
+	const digest = async function(user, login, server, password)
+	{
+		const key = await subtle.digest('SHA-512', strenc.encode(password));
+		const host = await subtle.digest('SHA-512', strenc.encode(login + server));
+		const auth = await subtle.digest('SHA-512', strenc.encode(user + buff2hex(host)));
+
+		return {auth: auth, host: host, key: key};
+	}
+
+	//--[ User inputs ]-----------------------------------------------
+
+	const user = await prompt("User: ");
+
+	console.log("Password:");
+
+	reader._writeToOutput = function(input){this.output.write('')};
+	const password = await prompt("\n");
+	reader._writeToOutput = function(input){this.output.write(input)};
+
+	const login = await prompt("\nLogin: ");
+	const server = await prompt("Server: ");
+
+	//--[ SHA512 digest + Tokenize with PBKDF2 / HMAC ]---------------
+
+	digest(user, login, server, password)
+	.then(hash => tokenizer(buff2hex(hash.auth), buff2hex(hash.host), buff2hex(hash.key)))
+	.then(function(results)
+	{
+		console.log("\nToken: !" + results.token);
+		console.log("PIN: !" + results.pin);
+	});
+
+	reader.close();
+})()
+</pre>
+<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="node-js"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.js</code>
+</section>
+<section>
+<hr/>
+<h3 onclick="this.nextElementSibling.classList.toggle('show')">JavaScript &#9662;
+	<i>(requires <a href="https://cryptojs.gitbook.io/">Crypto-JS</a> 🐢)</i></h3>
+
+<pre class="javascript">
+function tokenizer(auth, host, key)
+{
+	var pbkdf2 = CryptoJS.PBKDF2(auth, key, {hasher: CryptoJS.algo.SHA256, keySize: 512/32, iterations: 300000});
+	var hmac512 = CryptoJS.HmacSHA512(host, pbkdf2.toString());
+
+	return CryptoJS.SHA1(hmac512).toString(CryptoJS.enc.Base64);
+}
+
+function token2pin(token_b64)
+{
+	var hex_data = CryptoJS.enc.Base64.parse(token_b64).toString();	
+
+	var hex_word = hex_data.match(/(.{1,6})/g);			
+	var hexpin = parseInt(hex_word.shift(), 16);
+
+	for (var i=0; i < hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
+	return token_b64.substring(token_b64.length - 4) + hexpin;
+}
+
+function get_token(user, login, server, password)
+{
+	var host = CryptoJS.SHA512(login + server).toString();
+	var auth = CryptoJS.SHA512(user + host).toString();
+	var key = CryptoJS.SHA512(password).toString();
+
+	var token = tokenizer(auth, host, key);
+	var pin = token2pin(token);
+
+	return {token: token, pin: pin}
+}
+</pre>
+<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="javascript"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.js</code>
+</section>
+<section>
+<hr/>
+<h3 onclick="this.nextElementSibling.classList.toggle('show')">Linux shell &#9662;
+	<i>(requires <a href="https://www.lysator.liu.se/~nisse/nettle/">Nettle</a> and <a href="https://www.openssl.org/">OpenSSL</a>)</i></h3>
+
+<pre class="linux-shell">
+#!/bin/bash
+
+set +o allexport
+
+#--[ User inputs ]------------------------------------------------------------------------------
+
+read -p "User: " USER
+read -s -p "Password: " PASS
+
+echo -e "\n"
+
+read -p "Login: " LOGIN
+read -p "Server: " HOST
+
+#--[ SHA512 digest inputs ]---------------------------------------------------------------------
+
+PASS=$(echo -n "$PASS" | sha512sum | cut -d ' ' -f 1)
+HOST=$(echo -n "$LOGIN$HOST" | sha512sum | cut -d ' ' -f 1)
+USER=$(echo -n "$USER$HOST" | sha512sum | cut -d ' ' -f 1)
+
+#--[ Tokenize with PBKDF2 / HMAC ]--------------------------------------------------------------
+
+PBKDF2=$(echo -n "$USER" | nettle-pbkdf2 --iterations=300000 --length=64 "$PASS" | sed 's/ //g')
+HMAC512=$(echo -n "$HOST" | openssl dgst -sha512 -hmac "$PBKDF2" | cut -d ' ' -f 2)
+
+#--[ SHA1 + BASE64 for convenient output ]------------------------------------------------------
+
+TOKEN=$(echo -n "$HMAC512" | xxd -r -p | sha1sum -b | cut -d ' ' -f 1 | xxd -r -p | base64 -w 0)
+
+#--[ User output ]------------------------------------------------------------------------------
+
+echo -e "\nToken: !$TOKEN"
+
+#--[ PIN alternative ]---------------------------------------------------------------------------------------------
+
+HEXA=$(echo "$TOKEN" | base64 -d | xxd -p -u)
+HWORD=$(for ((i=0; i<=$(( ${#HEXA} / 6 )); i++)); do echo "$HEXA" | cut -c $(( i * 6 + 1 ))-$(( i * 6 + 6 )); done)
+XWORD=$(echo $HWORD | sed 's/ / ^ 0x/g')
+
+echo -e "PIN: ${TOKEN: -4}$(( 0x$XWORD ))"
+</pre>
+<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="linux-shell"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.sh</code>
+</section>
+<section>
+<hr/>
+<h3 onclick="this.nextElementSibling.classList.toggle('show')">Python script &#9662;</h3>
+
+<pre class="python-script">
+#!/usr/bin/python3
+
+import getpass
+import hashlib
+import base64
+import hmac
+
+#--[ User inputs ]------------------------------------------------------------------------------------------
+
+user = input("User: ")
+password = getpass.getpass()
+
+login = input("\nLogin: ")
+host = input("Server: ")
+
+#--[ SHA512 digest inputs ]---------------------------------------------------------------------------------
+
+hash_password = hashlib.sha512(password.encode('utf-8')).hexdigest()
+hash_host = hashlib.sha512(login.encode('utf-8') + host.encode('utf-8')).hexdigest()
+hash_user = hashlib.sha512(user.encode('utf-8') + hash_host.encode('utf-8')).hexdigest()
+
+#--[ Tokenize with PBKDF2/HMAC ]----------------------------------------------------------------------------
+
+pbkdf2 = hashlib.pbkdf2_hmac('sha256', hash_user.encode('utf-8'), hash_password.encode('utf-8'), 300000, 64)
+hmac512 = hmac.new(pbkdf2.hex().encode('utf-8'), hash_host.encode('utf-8'), hashlib.sha512)
+
+#--[ SHA1 + BASE64 for convenient output ]------------------------------------------------------------------
+
+sha1_token = hashlib.sha1(hmac512.digest())
+b64_token = base64.b64encode(sha1_token.digest()).decode('utf-8')
+
+#--[ User output ]------------------------------------------------------------------------------------------
+
+print("\nToken: !" + b64_token)
+
+#--[ PIN alternative ]--------------------------------------------------------------------------------------
+
+hex_word = []
+hex_token = sha1_token.hexdigest().upper()
+
+for i in range(0, len(hex_token), 6): hex_word.append(hex_token[i:i+6])
+
+pin_eval = '^0x'.join(str(n) for n in hex_word)
+pin_token = eval('0x' + pin_eval)
+
+print("PIN: " + b64_token[-4:] + str(pin_token))
+</pre>
+<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="python-script"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.py</code>
+</section>
+<section>
+<hr/>
+<h3 onclick="this.nextElementSibling.classList.toggle('show')">PHP script &#9662;</h3>
+
+<pre class="php-script">
+#!/usr/bin/php
+
+< ?php if ( php_sapi_name() !== 'cli' ) die('This script should not be run remotely.');
+
+#--[ Tokenize with PBKDF2 / HMAC ]-----------------------------------------------------
+
+function tokenizer($auth, $host, $key)
+{
+	$pbkdf2 = hash_pbkdf2('sha256', $auth, $key, 300000, 128);
+	$hmac = hash_hmac('sha512', $host, $pbkdf2);
+
+	return base64_encode(hash('sha1', hex2bin($hmac), true));
+}
+
+#--[ PIN alternative ]-----------------------------------------------------------------
+
+function token2pin($token)
+{
+	$hex_data = strtoupper(bin2hex(base64_decode($token)));
+	$hex_word = explode(':', chunk_split($hex_data, 6, ':'));
+	$hex_pin = hexdec(array_shift($hex_word)); 
+
+	foreach($hex_word as $word) if (!empty($word)) $hex_pin = $hex_pin ^ hexdec($word);
+	return(substr($token, -4) . $hex_pin);
+}
+
+#--[ User inputs ]---------------------------------------------------------------------
+
+$user = readline('User: ');
+
+echo "Password: ";
+system('stty -echo');
+$password = trim(fgets(STDIN));
+system('stty echo');
+echo "\n\n";
+
+$login = readline('Login: ');
+$server = readline('Server: ');
+
+#--[ SHA512 digest inputs ]------------------------------------------------------------
+
+$host = hash('sha512', $login . $server);
+$auth = hash('sha512', $user . $host);
+$key = hash('sha512', $password);
+
+#--[ User output ]---------------------------------------------------------------------
+
+$token = tokenizer($auth, $host, $key);
+$pin = token2pin($token);
+
+echo "\nToken: !$token";
+echo "\nPIN: $pin\n";
+</pre>
+<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="php-script"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.php</code>
+</section>
+<hr/><br/>
+</body>
+</html>
