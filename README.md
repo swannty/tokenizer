@@ -17,7 +17,7 @@ DIGEST = HMAC512( HOST_HASH, KEY )
 
 TOKEN = BASE64( SHA1(DIGEST) )
 ```
-👉 Available for JavaScript, PHP, Python & Linux shell 
+![flowchart diagram](./flowchart.png)
 
 Node.js & online version use **Web Crypto API / SubtleCrypto**.
 
@@ -31,17 +31,24 @@ JavaScript and HTML standalone version requires **Crypto-JS** library 🐢.
 - https://cdnjs.com/libraries/crypto-js
 - https://code.google.com/archive/p/crypto-js/downloads
 
-Shell version requires **Nettle** and **OpenSSL**.
+Shell version requires **Nettle** and **OpenSSL**. `# apt install nettle-bin openssl`
 
-- https://www.lysator.liu.se/~nisse/nettle
-- https://www.openssl.org
+- https://lysator.liu.se/~nisse/nettle
+- https://openssl.org
 
-`# apt install nettle-bin openssl`
+Python version use **hashlib** and **hmac** modules
 
+- https://docs.python.org/3/library/hashlib.html
+- https://docs.python.org/3/library/hmac.html
+
+PHP version use core features
+
+- https://www.php.net/manual/en/book.hash.php
+___
 Mirror: https://codeberg.org/swannty/tokenizer
 
 Talk: https://crypto.stackexchange.com/questions/98173/diy-password-key-derivation-tool-using-pbkdf2-hmac
 
 Live: https://jsfiddle.net/vm7ue0ns/2
-
-Blank run: `!o3Y8dKaEoS3t56eiwHw8A7qTAZs=` (5414339)
+___
+Blank run result: `!o3Y8dKaEoS3t56eiwHw8A7qTAZs=` (5414339)
