@@ -17,7 +17,7 @@ DIGEST = HMAC512( HOST_HASH, KEY )
 
 TOKEN = BASE64( SHA1(DIGEST) )
 ```
-![flowchart diagram](./flowchart.png)
+![flowchart diagram](./misc/tokenizer.png)
 
 Node.js & online version use **Web Crypto API / SubtleCrypto**.
 
