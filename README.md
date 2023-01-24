@@ -24,7 +24,7 @@ Node.js & online version use **Web Crypto API / SubtleCrypto**.
 - https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 - https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
 
-JavaScript and HTML standalone version requires **Crypto-JS** library 🐢.
+JavaScript and HTML standalone version requires **Crypto-JS** library. 🐢
 
 - https://cryptojs.gitbook.io
 - https://github.com/brix/crypto-js
@@ -36,12 +36,12 @@ Shell version requires **Nettle** and **OpenSSL**. `# apt install nettle-bin ope
 - https://lysator.liu.se/~nisse/nettle
 - https://openssl.org
 
-Python version use **hashlib** and **hmac** modules
+Python version use **hashlib** and **hmac** modules.
 
 - https://docs.python.org/3/library/hashlib.html
 - https://docs.python.org/3/library/hmac.html
 
-PHP version use core features
+PHP version use core features.
 
 - https://www.php.net/manual/en/book.hash.php
 ___
