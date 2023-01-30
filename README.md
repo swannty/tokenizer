@@ -49,10 +49,8 @@ PHP version use core features.
 
 - https://www.php.net/manual/en/book.hash.php
 ___
-Mirror: https://codeberg.org/swannty/tokenizer
-
-Talk: https://crypto.stackexchange.com/questions/98173/diy-password-key-derivation-tool-using-pbkdf2-hmac
-
+Mirror: https://codeberg.org/swannty/tokenizer \
+Talk: https://crypto.stackexchange.com/questions/98173/diy-password-key-derivation-tool-using-pbkdf2-hmac \
 Live: https://jsfiddle.net/vm7ue0ns/2
 ___
 Blank run result: `!o3Y8dKaEoS3t56eiwHw8A7qTAZs=` (5414339)
