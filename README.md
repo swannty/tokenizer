@@ -2,7 +2,7 @@
 
 **Quick & dirty password key derivation tool.**
 
-Inpired by https://spectre.app and https://lesspass.com \
+Inspired by https://spectre.app and https://lesspass.com \
 Only one good master password for an infinity of strong unique tokens.\
 No subscription - no account - no storage - no leaks - works offline & from terminal
 
