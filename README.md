@@ -2,6 +2,10 @@
 
 **Quick & dirty password key derivation tool.**
 
+Inpired by https://spectre.app and https://lesspass.com \
+Only one good master password for an infinity of strong unique tokens.\
+No subscription - no account - no storage - no leaks - works offline & from terminal
+
 > _« One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them. »_ — J.R.R. Tolkien
 
 ```
@@ -19,7 +23,7 @@ TOKEN = BASE64( SHA1(DIGEST) )
 ```
 ![flowchart diagram](./misc/tokenizer.png)
 
-Node.js & online version use **Web Crypto API / SubtleCrypto**.
+Node.js & online version use native **Web Crypto API / SubtleCrypto**.
 
 - https://developer.mozilla.org/en-US/docs/Web/API/Crypto
 - https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto
