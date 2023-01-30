@@ -10,7 +10,7 @@
 	<style>
 		i, code { font-size: 0.8em; }
 		h1 { font-family: monospace; }
-		pre { display: none; color: green; background-color: black; padding: 1em; }
+		pre { display: none; color: fuchsia; background-color: black; padding: 1em; }
 
 		.show { display: block !important; }
 		.hiden { color: #000; background-color: #000; }
@@ -23,30 +23,30 @@
 	<!-- https://code.google.com/archive/p/crypto-js/downloads -->
 
 	<!--
-	<script src="./crypto-js/core.js" 		type="application/javascript"></script>
-	<script src="./crypto-js/x64-core.js" 	type="application/javascript"></script>
-	<script src="./crypto-js/enc-base64.js"	type="application/javascript"></script>
+	<script src="./crypto-js/core.js"></script>
+	<script src="./crypto-js/x64-core.js"></script>
+	<script src="./crypto-js/enc-base64.js"></script>
 
-	<script src="./crypto-js/hmac.js" 		type="application/javascript"></script>
-	<script src="./crypto-js/sha1.js"		type="application/javascript"></script>
-	<script src="./crypto-js/sha256.js"		type="application/javascript"></script>
-	<script src="./crypto-js/sha512.js"		type="application/javascript"></script>
-	<script src="./crypto-js/pbkdf2.js"		type="application/javascript"></script>
+	<script src="./crypto-js/hmac.js"></script>
+	<script src="./crypto-js/sha1.js"></script>
+	<script src="./crypto-js/sha256.js"></script>
+	<script src="./crypto-js/sha512.js"></script>
+	<script src="./crypto-js/pbkdf2.js"></script>
 	-->
 
 	<!--
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.min.js" 		type="application/javascript" crossorigin="anonymous" integrity="sha512-t8vdA86yKUE154D1VlNn78JbDkjv3HxdK/0MJDMBUXUjshuzRgET0ERp/0MAgYS+8YD9YmFwnz6+FWLz1gRZaw=="></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/x64-core.min.js" 	type="application/javascript" crossorigin="anonymous" integrity="sha512-tNYICRDqCrXYTs49IF9PkDrFhc928gh7V0mDsfEGMEjrxK2GbDlOag3oeYEB4RqsKolV2AyzKw6eMiconXqeiw=="></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-IKpu1GFk/bQ+2fOc4sXuA6lm7Rct4P7611iDBxY9LReOZ2PpwoDWWqj6GSYejUce1FLxo/d4lxAnKqGWJuBw7g=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/core.min.js" crossorigin="anonymous" integrity="sha512-t8vdA86yKUE154D1VlNn78JbDkjv3HxdK/0MJDMBUXUjshuzRgET0ERp/0MAgYS+8YD9YmFwnz6+FWLz1gRZaw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/x64-core.min.js" crossorigin="anonymous" integrity="sha512-tNYICRDqCrXYTs49IF9PkDrFhc928gh7V0mDsfEGMEjrxK2GbDlOag3oeYEB4RqsKolV2AyzKw6eMiconXqeiw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/enc-base64.min.js" crossorigin="anonymous" integrity="sha512-IKpu1GFk/bQ+2fOc4sXuA6lm7Rct4P7611iDBxY9LReOZ2PpwoDWWqj6GSYejUce1FLxo/d4lxAnKqGWJuBw7g=="></script>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac.min.js" 	type="application/javascript" crossorigin="anonymous" integrity="sha512-tLNkZ/sTmmvq8RDIGCLU3ZzUYSixlGQxpL0X1LWFnTBdvw0SGurLkjAIh0CtG0oQ/1Yt6MaDiI8Gif05JZqEyQ=="></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha1.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-NHw1e1pc4RtmcynK88fHt8lpuetTUC0frnLBH6OrjmKGNnwY4nAnNBMjez4DRr9G1b+NtufOXLsF+apmkRCEIw=="></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha256.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-fv28nWHTcWfoN3KBd2fs+YWsirQ+L0b/iIRS7HcNDPSAwxy6oSjRrYjQ+OtJoJz0wUKsVcPYgwcZzK04KfHD0A=="></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha512.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-iVz09aQOY2fbdnKQh7kJ0Q9h2ZVjMsql2IT6mI+qziZdJ7bT/guIovUCCE5bx1qzc4mnnUKyGkArkkGJ1zap0g=="></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/pbkdf2.min.js"	type="application/javascript" crossorigin="anonymous" integrity="sha512-E1FCVqEhkBCsxW0xRseAo/Mf/u+7cqKxQQ5R4RNHMHH3CxYpQmeSnXL9Tcf6amYSgy/dR3/utZt2TFY05OGabQ=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/hmac.min.js" crossorigin="anonymous" integrity="sha512-tLNkZ/sTmmvq8RDIGCLU3ZzUYSixlGQxpL0X1LWFnTBdvw0SGurLkjAIh0CtG0oQ/1Yt6MaDiI8Gif05JZqEyQ=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha1.min.js" crossorigin="anonymous" integrity="sha512-NHw1e1pc4RtmcynK88fHt8lpuetTUC0frnLBH6OrjmKGNnwY4nAnNBMjez4DRr9G1b+NtufOXLsF+apmkRCEIw=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha256.min.js" crossorigin="anonymous" integrity="sha512-fv28nWHTcWfoN3KBd2fs+YWsirQ+L0b/iIRS7HcNDPSAwxy6oSjRrYjQ+OtJoJz0wUKsVcPYgwcZzK04KfHD0A=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/sha512.min.js" crossorigin="anonymous" integrity="sha512-iVz09aQOY2fbdnKQh7kJ0Q9h2ZVjMsql2IT6mI+qziZdJ7bT/guIovUCCE5bx1qzc4mnnUKyGkArkkGJ1zap0g=="></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/pbkdf2.min.js" crossorigin="anonymous" integrity="sha512-E1FCVqEhkBCsxW0xRseAo/Mf/u+7cqKxQQ5R4RNHMHH3CxYpQmeSnXL9Tcf6amYSgy/dR3/utZt2TFY05OGabQ=="></script>
 	-->
 
-	<script type="application/javascript">
+	<script>
 
 		"use strict";
 
@@ -185,8 +185,7 @@
 		</tr>
 	</table>
 </form>
-<br/>
-<div style="text-align: right;"><i>Powered by <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto">https://developer.mozilla.org/en-US/docs/Web/API/Crypto</a></i></div>
+<div style="text-align: right;"><i>&#9758; powered by <a href="https://developer.mozilla.org/en-US/docs/Web/API/Crypto">https://developer.mozilla.org/en-US/docs/Web/API/Crypto</a></i></div>
 <section>
 <hr/>
 <h3 onclick="this.nextElementSibling.classList.toggle('show')">Node.js &#9662;</h3>
@@ -214,7 +213,7 @@ var prompt = (query) => new Promise((resolve) => reader.question(query, resolve)
 		var hex_word = hex_data.match(/(.{1,6})/g);			
 		var hexpin = parseInt(hex_word.shift(), 16);
 
-		for (var i=0; i < hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
+		for (var i=0; i&lt;hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
 		return hexpin;
 	}
 
@@ -275,12 +274,11 @@ var prompt = (query) => new Promise((resolve) => reader.question(query, resolve)
 	reader.close();
 })()
 </pre>
-<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="node-js"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.js</code>
+<i>(use <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API">Web Crypto API</a>)</i>
 </section>
 <section>
 <hr/>
-<h3 onclick="this.nextElementSibling.classList.toggle('show')">JavaScript &#9662;
-	<i>(requires <a href="https://cryptojs.gitbook.io/">Crypto-JS</a> 🐢)</i></h3>
+<h3 onclick="this.nextElementSibling.classList.toggle('show')">JavaScript &#9662;</h3>
 
 <pre class="javascript">
 function tokenizer(auth, host, key)
@@ -298,7 +296,7 @@ function token2pin(token_b64)
 	var hex_word = hex_data.match(/(.{1,6})/g);			
 	var hexpin = parseInt(hex_word.shift(), 16);
 
-	for (var i=0; i < hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
+	for (var i=0; i&lt;hex_word.length; i++) hexpin = (hexpin ^ parseInt(hex_word[i], 16));
 	return token_b64.substring(token_b64.length - 4) + hexpin;
 }
 
@@ -314,12 +312,11 @@ function get_token(user, login, server, password)
 	return {token: token, pin: pin}
 }
 </pre>
-<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="javascript"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.js</code>
+<i>(requires <a href="https://cryptojs.gitbook.io/">Crypto-JS</a> 🐢)</i>
 </section>
 <section>
 <hr/>
-<h3 onclick="this.nextElementSibling.classList.toggle('show')">Linux shell &#9662;
-	<i>(requires <a href="https://www.lysator.liu.se/~nisse/nettle/">Nettle</a> and <a href="https://www.openssl.org/">OpenSSL</a>)</i></h3>
+<h3 onclick="this.nextElementSibling.classList.toggle('show')">Linux shell &#9662;</h3>
 
 <pre class="linux-shell">
 #!/bin/bash
@@ -358,12 +355,12 @@ echo -e "\nToken: !$TOKEN"
 #--[ PIN alternative ]---------------------------------------------------------------------------------------------
 
 HEXA=$(echo "$TOKEN" | base64 -d | xxd -p -u)
-HWORD=$(for ((i=0; i<=$(( ${#HEXA} / 6 )); i++)); do echo "$HEXA" | cut -c $(( i * 6 + 1 ))-$(( i * 6 + 6 )); done)
+HWORD=$(for ((i=0; i&lt;=$(( ${#HEXA} / 6 )); i++)); do echo "$HEXA" | cut -c $(( i * 6 + 1 ))-$(( i * 6 + 6 )); done)
 XWORD=$(echo $HWORD | sed 's/ / ^ 0x/g')
 
 echo -e "PIN: ${TOKEN: -4}$(( 0x$XWORD ))"
 </pre>
-<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="linux-shell"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.sh</code>
+<i>(requires <a href="https://www.lysator.liu.se/~nisse/nettle/">Nettle</a> and <a href="https://www.openssl.org/">OpenSSL</a>)</i>
 </section>
 <section>
 <hr/>
@@ -417,7 +414,7 @@ pin_token = eval('0x' + pin_eval)
 
 print("PIN: " + b64_token[-4:] + str(pin_token))
 </pre>
-<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="python-script"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.py</code>
+<i>(use <a href="https://docs.python.org/3/library/hashlib.html">hashlib</a> and <a href="https://docs.python.org/3/library/hmac.html">hmac</a> modules)</i>
 </section>
 <section>
 <hr/>
@@ -426,7 +423,7 @@ print("PIN: " + b64_token[-4:] + str(pin_token))
 <pre class="php-script">
 #!/usr/bin/php
 
-< ?php if ( php_sapi_name() !== 'cli' ) die('This script should not be run remotely.');
+&lt;?php if ( php_sapi_name() !== 'cli' ) die('This script should not be run remotely.');
 
 #--[ Tokenize with PBKDF2 / HMAC ]-----------------------------------------------------
 
@@ -477,8 +474,100 @@ $pin = token2pin($token);
 echo "\nToken: !$token";
 echo "\nPIN: $pin\n";
 </pre>
-<code># wget -qO - 1984.ninja | sed '/^&lt;pre class="php-script"&gt;$/,/^&lt;\/pre&gt;$/!d;//d' &gt;tokenizer.php</code>
+<i>(use crypto stuff from PHP core)</i>
 </section>
-<hr/><br/>
+<hr/>
+<div style="text-align: right;">
+<i>&#9758; check <a href="https://spectre.app/">spectre.app</a> or <a href="https://www.lesspass.com/">lesspass.com</a> for serious alternatives</i><br/><br/>
+<a href="http://www.wtfpl.net/"><img alt="wtfpl.net" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAACcAAAAcCAYAAADiHqZbAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAA
+GXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAABN0RVh0VGl0bGUATG9nbyBvZiBX
+VEZQTIGqA1kAAANnSURBVFiFvdhNjJ5TFAfw37ztVIUSVGMMwWRiFMnEaERiUE3ECkXLTkTSRGJn
+a6GkgnRlY23R2PmYLoQIodS0CNGIDhLxMTOl9RFplU6rY3GeiTv3PfPOvERPcvM+z7n/83HvPefc
+87w9FqcejGAjRtGHizCL73EAu/AKPsUw7sKNDfbiRsdkg323wX68BNsdnboPXzaOLGX81gX2C2xu
+7HRFg9jbhaH/MsYxsFTHRnHwFDk2N37GhtqReks34DX0Jk4fwRv4rHF+ZbPim3BVhT0udmQcPzR2
++rGuWfyyRP8MbsPbyZzBZgX1qqawpXFmIRrBGI7hGVzYAbsG2/FHYusQLqsFeuQxNoZVHQzVtLoL
+7JX4KrH5vupE701AO9Dqwti/ofNE1ta279F42IMJXF4IfSTq1J8FbwturZQ/gKMdjF+BJyreDuws
+3ocae2cWvAmsJYK09vyGSmGvKKAlZn8Hp0q5OvM/THBbEx+u0aysZL6ZCN+RCD9XzJ+Fc4pRxukL
+iezVlf5V+L3CbG2J4yvppcS59QnvneL5A/xSjJeLuWynapuHRZmah2lpT/vdibJ1Ce/r4nm2mivf
+JxPZkYRX2+3PnJtKBM9PeN8mvDlazLmzE9509d7f0r7qk4ng8oR3uHg+rZorC/ZMIptd9ieq99mW
+yMKSLkgEv0l4/c3vGaItKmmweL4kkc12vb96n2ppP8ZrE8G9Ce8RUaQf1L6zfbiu4d+fyGZxXcfh
+NDxufgpn2Toktr0uCUdEGCzUbRxLeIdweqV/hcjyEvfYnMcl84S492p6toMTs6JOPb0IZhYPJbof
+TnDD/HN9lROvag/aXjy/gMGjoo2HbfgrwZwU3UhNa/Bjhf28BGxOlNV34hytxaN4UdyR27QH/bBo
+nXaKMHlSXttWiO+P2vbdJagHexLQdnljuBB18z2wWjSWtc33Mj0DIlhr8LjoXjvRuXgK34lOJeuk
+52iZyPDJxNZBXDoHrD1cj9fFdte0TxzThGi9V4rjvBm3m5+BB0Sjuqd5bon6eb1oIvoS/TOiJdvV
+YWFGtQfo/z1+wi2dnCppQBznqXBst+Iol0o92KS9zHQa3XxU7xdZuWASLTW7RnCn+X8xLMev4hvg
+LfEXwz5RRjaKYxoSzedxkQDT4u+IMXyymNG/ATlntvNiQzqxAAAAAElFTkSuQmCC"/></a>
+<a href="https://512kb.club/"><img alt="512kb.club" src="data:image/png;base64,
+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"/></a>
+<a href="https://www.w3.org/"><img alt="w3c.org" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAFgAAAAfCAMAAABUFvrSAAADAFBMVEUBAAAIBgMMCQQKCgoSDgYX
+EgkaFAoUFBQcHBwlHQ4vJRIwJhM2KxUjIyMoKCg0MzI7OztBNBpGOBxOPh5OSz9TQiFnUilqVCp1
+Rzl0XC5/ZTJOTk5ST0tWUk1VVVVcXFxqXUplZWVra2tya2FwcHB7e3sAWpwIX58JYJ8OY6ERZaIV
+aKQaa6Yebaghb6klcqopdawxea82fbE4frI+grRFhrZMi7pVkb1alL9dlsBkm8NoncRtocZ0pcl8
+qsyWBAOZAACcCASIIBmdNiegDge3PB6mPiqBZzODaDSJbTaOcTiUdjuXeDy6QiG/TCahclPATifB
+UCjIXy/QbzfWej3Yfj+Rh2ulhEKvjEazj0e0gVi3kkm6lEq+mEyjkmuzn2e7pnLFnU7eikXOpFHR
+p1PVqlXarlfesVjjlUrmm03poFDtqVTitFrmuFzqu13zwWD7xWL+y2WDg4OXl5eYmJippZ61rZis
+rKy0tLS/v7+Crs6FsNCLtNKQt9SWu9aYvNebvtifwdqjw9uox92ryd6yzeG20OPCwsLMzMzU1NTA
+1ufG2ujN3+zT4+7d6fL/7Mbn5+fs7Ozl7vXp8fbu9Pj09PTy9/r1+Pv+/v7MzMwAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAACCrylyAAAAmnRSTlP/////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+//////8Ay7CFYwAAAAFiS0dE/6UH8sUAAAAJcEhZcwAAAEgAAABIAEbJaz4AAAMlSURBVEjH7Zb7
+UxJRFMcvGjLUmpYhpWZl42GE8JnhqNjSa8Swxp5OSqULQ1rsI6d0zHGSgQR8lAizt/+2c3d5i6My
+1k99Z7icu8x+9u73nnMuJH7q+vKbicTp0fqpHF/v317/D64OHBIkHAKSKIhsIgcFpqAcYNdFQVBk
+IVQV+DVpVgKEk31kQlE4EjYTJnOYEKuiNBGDEibcAXDE6ca717rXGCRtszlR3S5KM5874nRF1a2w
+kJlzJKjkwILfSqx+AcE1UogcAt4FBxJ/wAADR0HXGFVb8YZEQ0IHi0ZCvAqCLT6fmYQVZYI9Ikwu
+1Dy+UseRimDaC9s42mEfxyFwpVIb4MjQZXK+s9FUu5fdPCsxSAysqQBusprPjHOVV0zdsIpjH0Q0
+/C5Ve1jY2ogu3OjMZkXAYGR2+ohXkrlicIAYxMPASeindB8Afd2CXrSbzamJ/aRmdLDMGYJNZDbv
+cQGsWFsUDXx2enpaZmCez2dFF7qwAdBF6Ri46b4dtnDr6ouzYhwNFo11EoLlErCFLVMDM0kIvscz
+sg524au7oA+SaHeSDgOMpnHvisGfQjJuYEiSQmh0mE20SA6JDBwOYcSEK77PM2XBEXCpXbei4E6B
+HR/jAOhX6VI1lSc/4nXp4DTYYzCStvV+hyE237JDlG5WA36S5eYqbwB9iNFB0DOD0hEYrqpX5Lk5
+8DcAm4rZAJDW5jHoKesVHMGcYBIwEsref/KjHkzluTnwNsAdVoJwW0dFwbmnR5mMDh63ZMEB78Uy
+sPyQf7BY4N7li5uQE9a1Elyj60OaFYObOrljM2tFC5nJgprLwOz9PR/y3Msl3W0EUloJ7mCyudMR
+O0TUa78YtzaRB89WBr/QeJ553V/P09K2GetjY7IbM8QBNmClFze1X6snS/SoFcuTfEGeN2X9WF3V
+vsbwszPqcAyzPUy0mxqWaQnYa61ghTxV4C6etNEHWcEaWe36tQ5fmhbPctyFE58g0gzKr8z5FZFF
+c2X5+zzHPfXD9GWWe/qn9LxH4/6F439B4/6T/xUrR+rru+Pr1c0cuPUYunSY2g5cudrWoIH/AGtu
+hy4iyA0OAAAAAElFTkSuQmCC"/></a></div>
 </body>
 </html>
