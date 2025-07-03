@@ -48,6 +48,9 @@ Python version use **hashlib** and **hmac** modules.
 PHP version use core features.
 
 - https://www.php.net/manual/en/book.hash.php
+
+C++ build `g++ -o tokenizer tokenizer.cpp -lssl -lcrypto`
+
 ___
 Mirror: https://codeberg.org/swannty/tokenizer \
 Talk: https://crypto.stackexchange.com/questions/98173/diy-password-key-derivation-tool-using-pbkdf2-hmac \
