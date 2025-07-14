@@ -49,7 +49,7 @@ PHP version use core features.
 
 - https://www.php.net/manual/en/book.hash.php
 
-C++ build `g++ -o tokenizer tokenizer.cpp -lssl -lcrypto`
+C++ build : `g++ tokenizer.cpp -lssl -lcrypto -static -static-libgcc -static-libstdc++ -o tokenizer`
 
 ___
 Mirror: https://codeberg.org/swannty/tokenizer \
